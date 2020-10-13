@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="./css/style.css">
+        <script src="./js/bundle.js"></script>
+    </head>
+    <body>
+        <header>
+            <a href="./index.html">markdown test</p>
+            <a href="./upload.html">uploader</a>
+        </header>
+        <main>
+            <h1>Contents</h1>
+        </main>
+        <script>
+            let main = document.querySelector('main');
+            fetch(`${location.origin}/list`)
+            .then(res => res.json())
+            .then(json => {
+                for(let j of json) {
+                    console.log(j);
+                    let div = document.createElement('div');
+                    div.setAttribute('class', 'mainContainer');
+                    div.innerHTML = `
+                    <div>
+                        <a href="./article.html?key=${j._id}">${j.title}</a>
+                        <p>${j.timestamp}</p>
+                    </div>
+                    <div class="description">${j.description}...</div>
+                    `;
+                    main.appendChild(div)
+                }
+            });
+        </script>
+    </body>
+</html>
